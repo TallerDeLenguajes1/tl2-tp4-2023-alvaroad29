@@ -21,18 +21,18 @@ public class CadeteriaController : ControllerBase // nombreControlador(el recurs
         return Ok(cadeteria.Nombre);
     }
 
-    [HttpPost("CargaDatos")]
-    public ActionResult<string> CargaDatos(string tipoArchivo)
-    {
-        if (cadeteria.CargaDatos(tipoArchivo))
-        {
-            return Ok("DATOS CARGADOS");
-        }
-        else
-        {
-            return BadRequest("DATOS NO CARGADOS");
-        }
-    }
+    // [HttpPost("CargaDatos")]
+    // public ActionResult<string> CargaDatos(string tipoArchivo)
+    // {
+    //     if (cadeteria.CargaDatos(tipoArchivo))
+    //     {
+    //         return Ok("DATOS CARGADOS");
+    //     }
+    //     else
+    //     {
+    //         return BadRequest("DATOS NO CARGADOS");
+    //     }
+    // }
 
     [HttpGet] //muestra datos
     [Route("Pedidos")] // Route, cuando hay mas de un get sin datos
@@ -50,6 +50,13 @@ public class CadeteriaController : ControllerBase // nombreControlador(el recurs
         return Ok(cadetes);
     }
 
+    [HttpGet] //muestra datos , //si no pongo el Route y dejo [HttpGet("Cadetes")] tmb funciona
+    [Route("getInforme")]
+    public ActionResult<IEnumerable<Informe>> GetInforme()
+    {
+        var informe = cadeteria.GenerarInforme();
+        return Ok(informe);
+    }
 
 
     [HttpPost("AddPedidoParametros")] //agrega datos
@@ -104,6 +111,7 @@ public class CadeteriaController : ControllerBase // nombreControlador(el recurs
             return Ok(cadeteria.DevolverPedido(idPedido) != null && cadeteria.CancelarPedido(idPedido));
         }
     }
+
 
 }
 

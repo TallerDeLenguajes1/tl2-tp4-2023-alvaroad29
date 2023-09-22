@@ -18,11 +18,12 @@ public class Cadeteria
         if (cadeteriaSingleton == null)
         {
             cadeteriaSingleton = new Cadeteria();
+            cadeteriaSingleton.CargaDatos("csv");
         }
         return cadeteriaSingleton;
     }
 
-    public bool CargaDatos(string tipoArchivo) // cargo los datos dependiendo un tipo de archivo
+    private bool CargaDatos(string tipoArchivo) // cargo los datos dependiendo un tipo de archivo
     {
         bool bandera = false;
         if (tipoArchivo == "csv")
