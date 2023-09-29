@@ -33,3 +33,4 @@ C:\RepoTaller2\tl2-tp4-2023-alvaroad29\obj\Debug\net7.0\tl2-tp4-2023-alvaroad29.
 C:\RepoTaller2\tl2-tp4-2023-alvaroad29\obj\Debug\net7.0\ref\tl2-tp4-2023-alvaroad29.dll
 C:\RepoTaller2\tl2-tp4-2023-alvaroad29\bin\Debug\net7.0\infoCadeteria.json
 C:\RepoTaller2\tl2-tp4-2023-alvaroad29\bin\Debug\net7.0\infoCadetes.json
+C:\RepoTaller2\tl2-tp4-2023-alvaroad29\bin\Debug\net7.0\infoPedidos.json

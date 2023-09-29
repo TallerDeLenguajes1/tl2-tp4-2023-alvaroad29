@@ -9,7 +9,6 @@ public class Pedido
     private string obs;
     private Cliente cliente;
     private enumEstado estado;
-
     private int idCadete;
 
     // Propiedades
@@ -17,26 +16,29 @@ public class Pedido
     public string Obs { get => obs; }
     public enumEstado Estado { get => estado; }
     public int IdCadete { get => idCadete; set => idCadete = value; }
+    public Cliente Cliente { get => cliente; set => cliente = value; }
 
     // Metodos
 
     private static int numPedido = 1;
-    public Pedido(string obs, string nombre, string direccion, string telefono, string datosReferenciaDireccion) // constructor
+    public Pedido(string obs, string nombre, string direccion, string telefono, string datosReferenciaDireccion) 
     {
-        this.idCadete = 0; // valor por defecto (sin cadete asignado)
+        this.idCadete = 0;
         this.estado = enumEstado.noAasignado;
         this.nro = numPedido++;
         this.obs = obs;
-        cliente = new Cliente(nombre, direccion, telefono, datosReferenciaDireccion);
+        Cliente = new Cliente(nombre, direccion, telefono, datosReferenciaDireccion);
     }
+
+    public Pedido(){}
     public string VerDireccionCliente()
     {
-        return $"Direccion: {cliente.Direccion} \nReferencias direccion: {cliente.DatosReferenciaDireccion} ";
+        return $"Direccion: {Cliente.Direccion} \nReferencias direccion: {Cliente.DatosReferenciaDireccion} ";
     }
 
     public string VerDatosCliente()
     { 
-        return $"Nombre: {cliente.Nombre} \n Telefono: {cliente.Telefono} ";
+        return $"Nombre: {Cliente.Nombre} \n Telefono: {Cliente.Telefono} ";
     }
 
     public void CambiarEstado()

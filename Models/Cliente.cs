@@ -8,9 +8,9 @@ public class Cliente
     private string datosReferenciaDireccion;
 
     // Propiedades
-    public string Nombre { get => nombre;  }
+    public string Nombre { get => nombre; }
     public string Direccion { get => direccion;  }
-    public string Telefono { get => telefono; }
+    public string Telefono { get => telefono;  }
     public string DatosReferenciaDireccion { get => datosReferenciaDireccion; }
 
     // Metodos
@@ -21,6 +21,8 @@ public class Cliente
         this.telefono = telefono;
         this.datosReferenciaDireccion = datosReferenciaDireccion;
     }
+
+    
 }
 
 // las clases padre e hijos las creo en el mismo archivo

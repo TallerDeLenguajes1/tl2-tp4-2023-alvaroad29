@@ -1,0 +1,14 @@
+[
+    {
+        "Nro": 1,
+        "Obs": "pedido3",
+        "Estado": 0,
+        "IdCadete": 0,
+        "Cliente": {
+            "Nombre": "Ad",
+            "Direccion": "dir 1",
+            "Telefono": "123",
+            "DatosReferenciaDireccion": "roja"
+        }
+    }
+]
