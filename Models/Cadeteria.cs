@@ -7,8 +7,7 @@ public class Cadeteria
     private List<Cadete> cadetes;
     private List<Pedido> pedidos; 
     private AccesoADatosPedidos accesoADatosPedidos;
-    private AccesoADatosCadetes accesoADatosCadetes;
-
+    private AccesoADatosCadetesJSON accesoADatosCadetes;
     private static Cadeteria instance;
 
     public static Cadeteria GetInstance()
@@ -71,10 +70,12 @@ public class Cadeteria
         cadetes = new List<Cadete>();
     }
 
-    public void AgregarCadete(int id, string nombre, string direccion, string telefono)
+    public Cadete AgregarCadete(int id, string nombre, string direccion, string telefono)
     {
         Cadete cadete = new Cadete(id, nombre, direccion, telefono);
         cadetes.Add(cadete);
+        accesoADatosCadetes.Guardar(cadetes,"infoCadetes.json");
+        return cadete;
     }
 
     public bool AgregarPedido(string obs,string nombre,string direccion,string telefono,string datosReferencia)
@@ -193,7 +194,7 @@ public class Cadeteria
 
     public Pedido DevolverPedido(int idPedido) // devuelve pedido a partir de un id
     {
-        return pedidos.SingleOrDefault(pedido => pedido.Nro == idPedido);;
+        return pedidos.SingleOrDefault(pedido => pedido.Nro == idPedido);
     }
 
     public int CantPedidos(enumEstado estado)

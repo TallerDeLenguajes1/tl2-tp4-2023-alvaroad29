@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace tl2_tp4_2023_alvaroad29.Controllers; //las clases tinen q tener el namespace tl2_tp4_2023_alvaroad29 y en esta tl2_tp4_2023_alvaroad29.Controllers
@@ -86,6 +87,8 @@ public class CadeteriaController : ControllerBase // nombreControlador(el recurs
         }
     }
 
+   
+
     [HttpPut("CambiarCadetePedido")]
     public ActionResult<string> CambiarCadetePedido(int idPedido, int idNuevoCadete)
     {
@@ -111,7 +114,37 @@ public class CadeteriaController : ControllerBase // nombreControlador(el recurs
         }
     }
 
+    [HttpGet("GetPedido/{idPedido}")] // lo que esta entre {} tiene q tener el mismo nombre q el parametro de la funcion
+    public ActionResult<Pedido> GetPedidoId(int idPedido){
+        var pedido = cadeteria.DevolverPedido(idPedido);
+        if (pedido != null)
+        {
+            return Ok(pedido);
+        }else
+        {
+            return NotFound("Pedido no encontrado");
+        }
+    }
 
+    [HttpGet("GetCadete/{idCadete}")] 
+    public ActionResult<Cadete> GetCadete(int idCadete){
+        var cadete = cadeteria.DevolverCadete(idCadete);
+        if (cadete != null)
+        {
+            return Ok(cadete);
+        }else
+        {
+            return NotFound("Cadete no encontrado, verifique los datos ingresados");
+        }
+    }// esta bien devolver un string o un cadete?
+
+
+    [HttpPost("AddCadete")] //agrega datos
+    public ActionResult<Cadete> AddCadete(int id, string nombre, string direccion, string telefono)
+    {
+        var cadete = cadeteria.AgregarCadete(id,nombre,direccion,telefono);
+        return Ok(cadete);
+    }
 }
 
 //pedidos.Add(pedido)

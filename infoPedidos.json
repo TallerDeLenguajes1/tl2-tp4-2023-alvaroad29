@@ -1,9 +1,9 @@
 [
     {
+        "IdCadete": 0,
         "Nro": 0,
         "Obs": "asdasd",
         "Estado": 0,
-        "IdCadete": 0,
         "Cliente": {
             "Nombre": "Ad",
             "Direccion": "dir 1",
@@ -12,10 +12,10 @@
         }
     },
     {
+        "IdCadete": 2,
         "Nro": 0,
         "Obs": "asdas",
         "Estado": 0,
-        "IdCadete": 2,
         "Cliente": {
             "Nombre": "a",
             "Direccion": "a",
@@ -24,10 +24,10 @@
         }
     },
     {
+        "IdCadete": 0,
         "Nro": 0,
         "Obs": null,
         "Estado": 0,
-        "IdCadete": 0,
         "Cliente": {
             "Nombre": "a123",
             "Direccion": "a123123",
@@ -36,15 +36,27 @@
         }
     },
     {
+        "IdCadete": 0,
         "Nro": 1,
         "Obs": "p",
         "Estado": 0,
-        "IdCadete": 0,
         "Cliente": {
             "Nombre": "p",
             "Direccion": "p",
             "Telefono": "p",
             "DatosReferenciaDireccion": "p"
+        }
+    },
+    {
+        "IdCadete": 0,
+        "Nro": 1,
+        "Obs": "asf",
+        "Estado": 0,
+        "Cliente": {
+            "Nombre": "sdf",
+            "Direccion": "as",
+            "Telefono": "asf",
+            "DatosReferenciaDireccion": "afsa"
         }
     }
 ]

@@ -8,7 +8,7 @@ public abstract class AccesoADatosCadetes
 
 public class AccesoADatosCadetesCSV : AccesoADatosCadetes
 {
-   public override List<Cadete> Obtener(string nombreArchivo)
+    public override List<Cadete> Obtener(string nombreArchivo)
     {
         if (File.Exists(nombreArchivo))
         {
@@ -51,5 +51,10 @@ public class AccesoADatosCadetesJSON : AccesoADatosCadetes
             System.Console.WriteLine($"El archivo {nombreArchivo} NO EXISTE");
             return null;
         }
+    }
+
+    public void Guardar(List<Cadete> cadetes, string nombreArchivo){
+        string cadetesGuardar = JsonSerializer.Serialize(cadetes); 
+        File.WriteAllText(nombreArchivo,cadetesGuardar); 
     }
 }
