@@ -5,50 +5,62 @@ public class Cadeteria
     private string? nombre;
     private string? telefono;
     private List<Cadete> cadetes;
-    private List<Pedido> pedidos;
-    private AccesoADatosPedidosJSON accesoPedidos; 
-    private AccesoADatosCadeteria accesoCadeteria;
-    private AccesoADatosCadetes accesoCadetes;
+    private List<Pedido> pedidos; 
+    private AccesoADatosPedidos accesoADatosPedidos;
+    private AccesoADatosCadetes accesoADatosCadetes;
 
+    private static Cadeteria instance;
+
+    public static Cadeteria GetInstance()
+    {
+        if (instance == null)
+        {
+            var accesoADatosCadeteria = new AccesoADatosCadeteriaJSON();
+            instance = accesoADatosCadeteria.Obtener("infoCadeteria.json");
+            instance.accesoADatosPedidos = new AccesoADatosPedidosJSON();
+            instance.accesoADatosCadetes = new AccesoADatosCadetesJSON();
+            instance.CargarCadetes();
+            instance.CargarPedidos();
+        }
+        return instance;
+    }
     // Propiedades
     public string? Nombre { get => nombre; set => nombre = value; }
     public string? Telefono { get => telefono; set => telefono = value; }
 
     // Metodos
-    private static Cadeteria cadeteriaSingleton;
-    public static Cadeteria GetCadeteria()
-    {
-        if (cadeteriaSingleton == null)
-        {
-            cadeteriaSingleton = new Cadeteria();
-            cadeteriaSingleton.CargarDatos("json");
-        }
-        return cadeteriaSingleton;
-    }
+    // private static Cadeteria cadeteriaSingleton;
+    // public static Cadeteria GetCadeteria()
+    // {
+    //     if (cadeteriaSingleton == null)
+    //     {
+    //         cadeteriaSingleton = new Cadeteria();
+    //         cadeteriaSingleton.CargarDatos("json");
+    //     }
+    //     return cadeteriaSingleton;
+    // }
 
-    private void CargarDatos(string tipoArchivo) // cargo los datos dependiendo un tipo de archivo
-    {
-        if (tipoArchivo == "csv")
-        {
-            cadeteriaSingleton = accesoCadeteria.Obtener("infoCadeteria.csv");
-            cadeteriaSingleton.CargarCadetes(accesoCadetes.Obtener("infoCadetes.csv"));
-            cadeteriaSingleton.CargarPedidos(accesoPedidos.Obtener("infoPedidos.csv"));
-        }else
-        {
-            cadeteriaSingleton = accesoCadeteria.Obtener("infoCadeteria.json");
-            cadeteriaSingleton.CargarCadetes(accesoCadetes.Obtener("infoCadetes.json"));
-            cadeteriaSingleton.CargarPedidos(accesoPedidos.Obtener("infoPedidos.json"));
-        }
-    }
+    // private void CargarDatos(string tipoArchivo) // cargo los datos dependiendo un tipo de archivo
+    // {
+    //     if (tipoArchivo == "csv")
+    //     {
+    //         cadeteriaSingleton = accesoCadeteria.Obtener("infoCadeteria.csv");
+    //         cadeteriaSingleton.CargarCadetes(accesoCadetes.Obtener("infoCadetes.csv"));
+    //         cadeteriaSingleton.CargarPedidos(accesoADatosPedidos.Obtener("infoPedidos.csv"));
+    //     }else
+    //     {
+    //         cadeteriaSingleton = accesoCadeteria.Obtener("infoCadeteria.json");
+    //         cadeteriaSingleton.CargarCadetes(accesoCadetes.Obtener("infoCadetes.json"));
+    //         cadeteriaSingleton.CargarPedidos(accesoADatosPedidos.Obtener("infoPedidos.json"));
+    //     }
+    // }
+
     public Cadeteria()
     {
         nombre = "Cadeteria 'Por Defecto'";
         telefono = "0123-456789";
         pedidos = new List<Pedido>();
         cadetes = new List<Cadete>();
-        accesoPedidos = new AccesoADatosPedidosJSON();
-        accesoCadeteria = new AccesoADatosCadeteriaJSON();
-        accesoCadetes = new AccesoADatosCadetesJSON();
     }
     public Cadeteria(string nombre, string telefono) // constructor
     {
@@ -57,9 +69,6 @@ public class Cadeteria
         pedidos = new List<Pedido>();
         cadetes = new List<Cadete>();
         cadetes = new List<Cadete>();
-        accesoPedidos = new AccesoADatosPedidosJSON();
-        accesoCadeteria = new AccesoADatosCadeteriaJSON();
-        accesoCadetes = new AccesoADatosCadetesJSON();
     }
 
     public void AgregarCadete(int id, string nombre, string direccion, string telefono)
@@ -75,7 +84,7 @@ public class Cadeteria
         if (pedido != null)
         {
             pedidos.Add(pedido);
-            accesoPedidos.Guardar(pedidos,"infoPedidos.json");
+            accesoADatosPedidos.Guardar(pedidos,"infoPedidos.json");
             bandera = true;
         }
         return bandera;
@@ -88,14 +97,14 @@ public class Cadeteria
     //     return true;
     // }
 
-    public void CargarCadetes(List<Cadete> cadetes)
+    public void CargarCadetes()
     {
-        this.cadetes = cadetes;
+        cadetes = accesoADatosCadetes.Obtener("infoCadetes.json");
     }
 
-    public void CargarPedidos(List<Pedido> pedidos)
+    public void CargarPedidos()
     {
-        this.pedidos = pedidos;
+        pedidos = accesoADatosPedidos.Obtener("infoPedidos.json");
     }
 
     public bool AsignarCadeteAPedido(int idCadete, int idPedido)
@@ -107,7 +116,7 @@ public class Cadeteria
         {
             pedido.IdCadete = idCadete;
             pedido.CambiarEstado();
-            accesoPedidos.Guardar(pedidos,"infoPedidos.csv");
+            accesoADatosPedidos.Guardar(pedidos,"infoPedidos.csv");
             bandera = true;
         }
         return bandera;
@@ -125,7 +134,7 @@ public class Cadeteria
         if (pedido != null) 
         {
             pedido.CambiarEstado();
-            accesoPedidos.Guardar(pedidos,"infoPedidos.csv");
+            accesoADatosPedidos.Guardar(pedidos,"infoPedidos.csv");
             bandera = true;
         }
         return bandera;
@@ -145,7 +154,7 @@ public class Cadeteria
         if (pedido != null && cadete != null)
         {
             pedido.IdCadete = idCadeteAgregar;
-            accesoPedidos.Guardar(pedidos,"infoPedidos.csv");
+            accesoADatosPedidos.Guardar(pedidos,"infoPedidos.csv");
             bandera = true;
         }
         return bandera;

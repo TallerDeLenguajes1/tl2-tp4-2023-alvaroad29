@@ -12,21 +12,22 @@ public class Pedido
     private int idCadete;
 
     // Propiedades
-    public int Nro { get => nro; }
-    public string Obs { get => obs; }
-    public enumEstado Estado { get => estado; }
-    public int IdCadete { get => idCadete; set => idCadete = value; }
+    
+    public int IdCadete { get => idCadete; set => idCadete = value; } //si no pongo el set no deserializa bien
+    public int Nro { get => nro; set => nro = value; }
+    public string Obs { get => obs; set => obs = value; }
+    public enumEstado Estado { get => estado; set => estado = value; }
     public Cliente Cliente { get => cliente; set => cliente = value; }
 
     // Metodos
 
     private static int numPedido = 1;
-    public Pedido(string obs, string nombre, string direccion, string telefono, string datosReferenciaDireccion) 
+    public Pedido(string obs, string nombre, string direccion, string telefono, string datosReferenciaDireccion,int idCadete = 0,enumEstado estado = enumEstado.noAasignado, int nro = 0) 
     {
         this.idCadete = 0;
-        this.estado = enumEstado.noAasignado;
-        this.nro = numPedido++;
-        this.obs = obs;
+        this.Estado = enumEstado.noAasignado;
+        this.Nro = numPedido++;
+        this.Obs = obs;
         Cliente = new Cliente(nombre, direccion, telefono, datosReferenciaDireccion);
     }
 
@@ -43,18 +44,18 @@ public class Pedido
 
     public void CambiarEstado()
     {
-        if (estado == enumEstado.noAasignado) 
+        if (Estado == enumEstado.noAasignado) 
         {
-            estado = enumEstado.pendiente;
+            Estado = enumEstado.pendiente;
         }else
         {
-            estado = enumEstado.entregado;
+            Estado = enumEstado.entregado;
         }
     }
 
     public void CancelarPedido()
     {
-        this.estado = enumEstado.cancelado;
+        this.Estado = enumEstado.cancelado;
     }
 
     public string MostrarPedido()

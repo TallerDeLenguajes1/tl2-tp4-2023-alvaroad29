@@ -12,7 +12,7 @@ public class CadeteriaController : ControllerBase // nombreControlador(el recurs
     public CadeteriaController(ILogger<CadeteriaController> logger)
     {
         _logger = logger;
-        cadeteria = Cadeteria.GetCadeteria(); //inicializo a traves del controlador
+        cadeteria = Cadeteria.GetInstance(); //inicializo a traves del controlador
     }
 
     [HttpGet] 
@@ -76,9 +76,8 @@ public class CadeteriaController : ControllerBase // nombreControlador(el recurs
     [HttpPut("AsignarPedido")]
     public ActionResult<string> Asignar(int idPedido, int idCadete)
     {
-        if (cadeteria.DevolverCadete(idCadete) != null && cadeteria.DevolverPedido(idPedido) != null)
+        if (cadeteria.AsignarCadeteAPedido(idCadete,idPedido))
         {
-            cadeteria.AsignarCadeteAPedido(idCadete,idPedido);
             return Ok("Pedido asignado");
         }
         else
